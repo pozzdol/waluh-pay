@@ -1,0 +1,241 @@
+/* Waluh Pay — design tokens (dari design.md · Hallmark modern-minimal, brand-anchored)
+ * Token shadcn/ui di-value ulang ke palet brand; nama token dipertahankan agar semua
+ * komponen shadcn otomatis ikut brand. Token status & brand ekstra ditambah di bawah.
+ */
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-destructive-soft: var(--destructive-soft);
+
+    /* brand & status ekstra (tidak ada di shadcn default) */
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-highlight: var(--highlight);
+    --color-highlight-foreground: var(--highlight-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-success-soft: var(--success-soft);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-warning-soft: var(--warning-soft);
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+    --color-info-soft: var(--info-soft);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar-background);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+:root {
+    /* paper & ink — light */
+    --background: oklch(100% 0 0);            /* paper-0 */
+    --foreground: oklch(31% 0.006 150);        /* ink #2E2E2E */
+    --card: oklch(99% 0.003 150);              /* paper-2 */
+    --card-foreground: oklch(24% 0.008 150);   /* ink-strong */
+    --popover: oklch(100% 0 0);
+    --popover-foreground: oklch(31% 0.006 150);
+
+    /* CTA hijau-kuat (teks putih lolos AA ~5.3:1) */
+    --primary: oklch(54% 0.130 150);           /* #2E7D32 */
+    --primary-foreground: oklch(100% 0 0);
+
+    --secondary: oklch(97.5% 0.004 150);       /* paper-1 */
+    --secondary-foreground: oklch(31% 0.006 150);
+    --muted: oklch(97.5% 0.004 150);
+    --muted-foreground: oklch(52% 0.010 150);  /* ink-muted (AA) */
+
+    /* shadcn "accent" = latar hover/subtle → tint hijau lembut (BUKAN kuning) */
+    --accent: oklch(95% 0.030 150);            /* accent-soft */
+    --accent-foreground: oklch(42% 0.110 150);
+
+    --destructive: oklch(58% 0.200 27);        /* danger */
+    --destructive-foreground: oklch(100% 0 0);
+    --destructive-soft: oklch(95% 0.030 27);
+
+    --border: oklch(92% 0.004 150);
+    --input: oklch(85% 0.006 150);             /* border-strong */
+    --ring: oklch(60% 0.150 150);              /* focus */
+    --radius: 0.625rem;                        /* 10px — radius-md */
+
+    /* brand & aksen (dekoratif / highlight) */
+    --brand: oklch(71.5% 0.158 150);           /* #4CAF50 — fill/ikon, bukan teks kecil */
+    --brand-foreground: oklch(24% 0.008 150);  /* teks GELAP di atas brand-green */
+    --highlight: oklch(92.5% 0.165 103);       /* #FFEB3B — aksen, bukan teks */
+    --highlight-foreground: oklch(24% 0.008 150);
+
+    /* status transaksi (SRS §6.2) */
+    --success: oklch(54% 0.130 150);
+    --success-foreground: oklch(100% 0 0);
+    --success-soft: oklch(95% 0.030 150);
+    --warning: oklch(72% 0.150 75);
+    --warning-foreground: oklch(24% 0.008 150);
+    --warning-soft: oklch(96% 0.045 80);
+    --info: oklch(58% 0.130 250);
+    --info-foreground: oklch(100% 0 0);
+    --info-soft: oklch(95% 0.030 250);
+
+    /* charts (laporan admin) */
+    --chart-1: oklch(71.5% 0.158 150);         /* green */
+    --chart-2: oklch(58% 0.130 250);           /* blue */
+    --chart-3: oklch(72% 0.150 75);            /* amber */
+    --chart-4: oklch(85% 0.160 100);           /* yellow */
+    --chart-5: oklch(58% 0.200 27);            /* red */
+
+    /* sidebar admin */
+    --sidebar-background: oklch(97.5% 0.004 150);
+    --sidebar-foreground: oklch(31% 0.006 150);
+    --sidebar-primary: oklch(54% 0.130 150);
+    --sidebar-primary-foreground: oklch(100% 0 0);
+    --sidebar-accent: oklch(95% 0.030 150);
+    --sidebar-accent-foreground: oklch(42% 0.110 150);
+    --sidebar-border: oklch(92% 0.004 150);
+    --sidebar-ring: oklch(60% 0.150 150);
+}
+
+.dark {
+    --background: oklch(20% 0.006 150);
+    --foreground: oklch(89% 0.004 150);
+    --card: oklch(24% 0.006 150);
+    --card-foreground: oklch(96% 0.004 150);
+    --popover: oklch(24% 0.006 150);
+    --popover-foreground: oklch(96% 0.004 150);
+
+    /* dark: fill hijau-terang + teks GELAP (membalik kontras) */
+    --primary: oklch(78% 0.150 150);
+    --primary-foreground: oklch(22% 0.020 150);
+
+    --secondary: oklch(27% 0.006 150);
+    --secondary-foreground: oklch(96% 0.004 150);
+    --muted: oklch(27% 0.006 150);
+    --muted-foreground: oklch(72% 0.006 150);
+    --accent: oklch(31% 0.020 150);
+    --accent-foreground: oklch(90% 0.020 150);
+
+    --destructive: oklch(62% 0.190 27);
+    --destructive-foreground: oklch(22% 0 0);
+    --destructive-soft: oklch(30% 0.060 27);
+
+    --border: oklch(33% 0.006 150);
+    --input: oklch(37% 0.006 150);
+    --ring: oklch(72% 0.150 150);
+
+    --brand: oklch(76% 0.150 150);
+    --brand-foreground: oklch(20% 0.020 150);
+    --highlight: oklch(90% 0.170 103);
+    --highlight-foreground: oklch(20% 0.020 150);
+
+    --success: oklch(72% 0.140 150);
+    --success-foreground: oklch(20% 0.020 150);
+    --success-soft: oklch(30% 0.050 150);
+    --warning: oklch(80% 0.150 80);
+    --warning-foreground: oklch(22% 0.020 80);
+    --warning-soft: oklch(32% 0.060 80);
+    --info: oklch(72% 0.120 250);
+    --info-foreground: oklch(20% 0.020 250);
+    --info-soft: oklch(30% 0.050 250);
+
+    --chart-1: oklch(76% 0.150 150);
+    --chart-2: oklch(72% 0.120 250);
+    --chart-3: oklch(80% 0.150 80);
+    --chart-4: oklch(88% 0.150 100);
+    --chart-5: oklch(65% 0.190 27);
+
+    --sidebar-background: oklch(22% 0.006 150);
+    --sidebar-foreground: oklch(89% 0.004 150);
+    --sidebar-primary: oklch(78% 0.150 150);
+    --sidebar-primary-foreground: oklch(22% 0.020 150);
+    --sidebar-accent: oklch(31% 0.020 150);
+    --sidebar-accent-foreground: oklch(90% 0.020 150);
+    --sidebar-border: oklch(33% 0.006 150);
+    --sidebar-ring: oklch(72% 0.150 150);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /* Heading pakai display font (Plus Jakarta Sans), roman */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-display);
+        font-style: normal;
+    }
+
+    /* Nominal & kode: tabular numerals */
+    .font-mono, .tabular-nums {
+        font-variant-numeric: tabular-nums;
+    }
+}
